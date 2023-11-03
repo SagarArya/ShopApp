@@ -146,7 +146,7 @@ class productsProviders with ChangeNotifier {
     final url = Uri.https('shopapp-a0fbb-default-rtdb.firebaseio.com',
         '/productsProvider/$id.json');
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
-    var existingProduct = _items[existingProductIndex];
+    Product? existingProduct = _items[existingProductIndex];
     _items.removeAt(existingProductIndex);
     notifyListeners();
     final response = await http.delete(url);

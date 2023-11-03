@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class CartItem {
   final String id;
   final String title;
@@ -7,10 +8,10 @@ class CartItem {
   final double price;
 
   CartItem({
-    @required this.id,
-    @required this.title,
-    @required this.quantity,
-    @required this.price,
+    required this.id,
+    required this.title,
+    required this.quantity,
+    required this.price,
   });
 }
 
@@ -66,7 +67,7 @@ class Cart with ChangeNotifier {
     if (!_items.containsKey(productId)) {
       return;
     }
-    if (_items[productId].quantity > 1) {
+    if (_items[productId]!.quantity > 1) {
       _items.update(
         productId,
         (existingCartItem) => CartItem(

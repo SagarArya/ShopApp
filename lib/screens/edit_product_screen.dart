@@ -17,7 +17,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
   var _editedProduct = Product(
-    id: null,
+    id: '',
     title: '',
     price: 0,
     description: '',
@@ -43,7 +43,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      final productId = ModalRoute.of(context).settings.arguments as String;
+      final productId = ModalRoute.of(context)!.settings.arguments as String;
 
       if (productId != null) {
         _editedProduct =
@@ -86,11 +86,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   Future<void> _saveForm() async {
-    final isValid = _form.currentState.validate();
+    final isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
     }
-    _form.currentState.save();
+    _form.currentState!.save();
     setState(() {
       _isLoading = true;
     });
@@ -108,7 +108,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   title: Text('An error occured!'),
                   content: Text('Something went wrong!'),
                   actions: [
-                    FlatButton(
+                    ElevatedButton(
                       child: Text('Okay'),
                       onPressed: () {
                         Navigator.of(ctx).pop();
@@ -154,7 +154,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         FocusScope.of(context).requestFocus(_priceFocusNode);
                       },
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Please provice a value.';
                         }
                         return null;
@@ -163,7 +163,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         _editedProduct = Product(
                           id: _editedProduct.id,
                           isFavourite: _editedProduct.isFavourite,
-                          title: value,
+                          title: value!,
                           description: _editedProduct.description,
                           price: _editedProduct.price,
                           imageUrl: _editedProduct.imageUrl,
@@ -181,7 +181,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             .requestFocus(_descriptionFocusNode);
                       },
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Please enter a price.';
                         }
                         if (double.tryParse(value) == null) {
@@ -198,7 +198,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           isFavourite: _editedProduct.isFavourite,
                           title: _editedProduct.title,
                           description: _editedProduct.description,
-                          price: double.parse(value),
+                          price: double.parse(value!),
                           imageUrl: _editedProduct.imageUrl,
                         );
                       },
@@ -210,7 +210,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       keyboardType: TextInputType.multiline,
                       focusNode: _descriptionFocusNode,
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Please enter a description.';
                         }
                         if (value.length < 10) {
@@ -223,7 +223,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           id: _editedProduct.id,
                           isFavourite: _editedProduct.isFavourite,
                           title: _editedProduct.title,
-                          description: value,
+                          description: value!,
                           price: _editedProduct.price,
                           imageUrl: _editedProduct.imageUrl,
                         );
@@ -265,7 +265,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               _saveForm();
                             },
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value!.isEmpty) {
                                 return 'Please enter an image URL.';
                               }
                               if (!value.startsWith('http') &&
@@ -286,7 +286,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 title: _editedProduct.title,
                                 description: _editedProduct.description,
                                 price: _editedProduct.price,
-                                imageUrl: value,
+                                imageUrl: value!,
                               );
                             },
                           ),
